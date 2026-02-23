@@ -25,6 +25,7 @@ export const SALES_TEAM: { email: string; name: string; role: 'salesperson' | 'm
     { email: 'abhishekabhishekc7@gmail.com', name: 'Abhishek C', role: 'salesperson' },
     { email: 'amjunaidd@gmail.com', name: 'Muhammed Junaid A', role: 'salesperson' },
     { email: 'lalnidhinp02@gmail.com', name: 'Nidhin', role: 'salesperson' },
+    { email: 'vahabferoke9@gmail.com', name: 'Vahab Feroke', role: 'salesperson' },
     { email: 'infovahabkp@gmail.com', name: 'Vahab KP', role: 'manager' },
     { email: 'infonidhinlal@gmail.com', name: 'Nidhin Lal', role: 'manager' },
 ];
