@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useApp } from '@/context/AppContext';
 import { addSaleEntry } from '@/lib/google-sheets';
 import { getTodayISO } from '@/lib/utils';
-import { PRODUCT_CATEGORIES, PLANS, PAYMENT_METHODS } from '@/lib/constants';
+import { PRODUCT_CATEGORIES, PRODUCT_PLANS, PLANS, PAYMENT_METHODS } from '@/lib/constants';
 import { CheckCircle, Send } from 'lucide-react';
 
 export default function ConfirmedSalePage() {
@@ -26,7 +26,19 @@ export default function ConfirmedSalePage() {
     const isValid = form.shopName.trim() !== '' && form.phone.trim() !== '';
 
     const handleChange = (field: string, value: string) => {
-        setForm((f) => ({ ...f, [field]: value }));
+        setForm((f) => {
+            const nextForm = { ...f, [field]: value };
+
+            // If category changes, reset plan if it's not valid for the new category
+            if (field === 'category') {
+                const availablePlans = PRODUCT_PLANS[value] || [];
+                if (!availablePlans.includes(f.plan)) {
+                    nextForm.plan = '';
+                }
+            }
+
+            return nextForm;
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -185,9 +197,15 @@ export default function ConfirmedSalePage() {
                                 onChange={(e) => handleChange('plan', e.target.value)}
                             >
                                 <option value="">Select plan</option>
-                                {PLANS.map((plan) => (
-                                    <option key={plan} value={plan}>{plan}</option>
-                                ))}
+                                {form.category ? (
+                                    PRODUCT_PLANS[form.category]?.map((plan) => (
+                                        <option key={plan} value={plan}>{plan}</option>
+                                    ))
+                                ) : (
+                                    PLANS.map((plan) => (
+                                        <option key={plan} value={plan}>{plan}</option>
+                                    ))
+                                )}
                             </select>
                         </div>
 

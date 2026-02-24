@@ -35,8 +35,15 @@ export const PRODUCT_CATEGORIES = [
     'Wifi Marketing',
 ];
 
+export const PRODUCT_PLANS: Record<string, string[]> = {
+    'BeetLink': ['₹299'],
+    'Wifi Marketing': ['₹699', '₹999'],
+};
+
 export const PLANS = [
     '₹299',
+    '₹699',
+    '₹999',
 ];
 
 export const PAYMENT_METHODS = [
